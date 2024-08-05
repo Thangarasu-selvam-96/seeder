@@ -51,11 +51,11 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/testdb
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: root
-
-      - name: Build Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile
-          push: false
-          tags: latest
+#
+#      - name: Build Docker Image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: Dockerfile
+#          push: false
+#          tags: latest
