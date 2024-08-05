@@ -1,0 +1,322 @@
+openapi: 3.0.0
+info:
+  title: Cash Kick Management API
+  description: API for managing cash kicks, repayment schedules, and payments.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+    description: Local server
+paths:
+  /api/user:
+    post:
+      summary: User Signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "jhon"
+                email:
+                  type: string
+                  example: "jhon@gmail.com"
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User registered successfully!"
+  /api/user/login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "jhon@gmail.com"
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User logged in successfully!"
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: "dsadfafsa"
+  /api/user/{user-id}:
+    get:
+      summary: Get User Details
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User details fetched successfully"
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "jhon"
+                      email:
+                        type: string
+                        example: "jhon@gmail.com"
+                      termCap:
+                        type: integer
+                        example: 12
+                      availableCredit:
+                        type: number
+                        format: double
+                        example: 7000000.00
+                      maxInterestRate:
+                        type: number
+                        format: double
+                        example: 12.00
+  /api/contract:
+    get:
+      summary: Get Contract List
+      responses:
+        '200':
+          description: Contract list fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Contract list fetched successfully"
+                  data:
+                    type: object
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: "contract1"
+                            type:
+                              type: string
+                              example: "monthly"
+                            perPayment:
+                              type: number
+                              format: double
+                              example: 12000.25
+                            termLength:
+                              type: integer
+                              example: 12
+                            interest:
+                              type: number
+                              format: double
+                              example: 12
+                            paymentAmount:
+                              type: number
+                              format: double
+                              example: 126722.64
+  /api/user/{user-id}/payment-list:
+    get:
+      summary: Get User Payment List
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User payment list fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User payment list fetched successfully"
+                  data:
+                    type: object
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            dueDate:
+                              type: string
+                              example: "Mar 03, 2021"
+                            status:
+                              type: string
+                              example: "Upcoming"
+                            expectedAmount:
+                              type: number
+                              format: double
+                              example: 14204
+                            outstanding:
+                              type: number
+                              format: double
+                              example: 156250.05
+  /api/user/{user-id}/contract-list:
+    get:
+      summary: Get User Contract List
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User contract list fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User contract list fetched successfully"
+                  data:
+                    type: object
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: "contract 1"
+                            type:
+                              type: string
+                              example: "Monthly"
+                            perPayment:
+                              type: number
+                              format: double
+                              example: 12000.25
+                            termLength:
+                              type: integer
+                              example: 12
+                            interest:
+                              type: number
+                              format: double
+                              example: 12
+                            paymentAmount:
+                              type: number
+                              format: double
+                              example: 126722.64
+  /api/user/{user-id}/cash-kick-list:
+    get:
+      summary: Get User Cash Kick List
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User cash kick list fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User cash kick list fetched successfully"
+                  data:
+                    type: object
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: "My first advance"
+                            status:
+                              type: string
+                              example: "Pending"
+                            maturity:
+                              type: string
+                              example: "Apr 03, 2022"
+                            totalRecieved:
+                              type: number
+                              format: double
+                              example: 150000
+                            interest:
+                              type: number
+                              format: double
+                              example: 12
+                            totalFinanced:
+                              type: number
+                              format: double
+                              example: 170454
+  /api/user/{user-id}/cash-kick:
+    post:
+      summary: Create Cash Kick
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cashKickName:
+                  type: string
+                  example: "my first advance"
+                contractIds:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1,2]
+      responses:
+        '200':
+          description: Cash kick created successfully

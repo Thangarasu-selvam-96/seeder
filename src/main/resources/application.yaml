@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/seeder
+    username: root
+    password: Password@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+application:
+  user:
+    user-credit: 7000000
+    term-cap: 12
+    max-interest-rate: 12
